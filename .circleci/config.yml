@@ -6,7 +6,8 @@ jobs:
     steps:
       - checkout
       - run: g++ -std=c++11 main.cpp Directory.cpp System.cpp
-      - run: ./a.out < .circleci/in.txt > .circleci/out.txt
+      - run: ./a.out < .circleci/in.txt > .circleci/out.txt      
+      - run: cat .circleci/out.txt
 workflows:
   version: 2
   tasks:

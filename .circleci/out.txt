@@ -1,0 +1,7 @@
+root@notebook:~#root@notebook:~#root@notebook:~#apple
+pear
+root@notebook:~#root@notebook:/apple# root@notebook:/apple# banana
+root@notebook:/apple# root@notebook:~#apple
+pear
+root@notebook:~#
+
