@@ -1,13 +1,14 @@
 version: 2
 jobs:
-  print:
+  build_and_test:
     machine:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run: cat main.cpp
+      - run: g++ -std=c++11 main.cpp Directory.cpp System.cpp
+      - run: ./a.out < .circleci/in.txt > .circleci/out.txt
 workflows:
   version: 2
   tasks:
     jobs:
-      - print
+      - build_and_test

@@ -1,0 +1,9 @@
+mkdir apple
+mkdir pear
+ls
+cd apple
+mkdir banana
+ls
+cd ..
+ls
+exit
