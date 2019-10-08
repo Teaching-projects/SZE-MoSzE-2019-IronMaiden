@@ -25,7 +25,10 @@ void Directory::ls()
 
 void Directory::mkdir(std::string name)
 {
-    dirlist.push_back(new Directory(name));
+    Directory* d=this->getelement(name);
+    if(d == nullptr)
+        dirlist.push_back(new Directory(name));
+    else std::cout<<"mkdir: nem lehet a következő könyvtárat létrehozni: "<<name<<": A fájl már létezik"<<std::endl;
 }
 
 Directory *Directory::getelement(std::string name)

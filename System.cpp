@@ -30,6 +30,7 @@ bool System::command(std::string command)
         }else{
             Directory* dir=RootList.back()->getelement(arg1);
             if(dir!=nullptr)RootList.push_back(dir);
+            else std::cout<<"bash: cd: "<<arg1<<": Nincs ilyen fájl vagy könyvtár"<<std::endl;
         }
     }
     else{
