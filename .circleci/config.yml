@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  print:
+    machine:
+      image: ubuntu-1604:201903-01
+    steps:
+      - checkout
+      - run: cat main.cpp
+workflows:
+  version: 2
+  tasks:
+    jobs:
+      - print
