@@ -14,6 +14,7 @@ public:
     void ls();
     void mkdir(std::string name);
     Directory* getelement(std::string name);
+    void rm(std::string name);
 };
 
 #endif // DIRECTORY_H

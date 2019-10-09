@@ -40,3 +40,14 @@ Directory *Directory::getelement(std::string name)
     return nullptr;
 }
 
+void Directory::rm(std::string name)
+{
+    Directory* d=this->getelement(name);
+    if(d != nullptr){
+       if(d->dirlist.size()==0){
+        delete d;
+        dirlist.remove(d);
+        }else std::cout<<"rm: "<<name<<" nem törölhető: A könyvtár nem üres"<<std::endl;
+    }else std::cout<<"rm: "<<name<<" nem törölhető: Nincs ilyen fájl vagy könyvtár"<<std::endl;
+}
+

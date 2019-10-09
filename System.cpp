@@ -33,6 +33,9 @@ bool System::command(std::string command)
             else std::cout<<"bash: cd: "<<arg1<<": Nincs ilyen fájl vagy könyvtár"<<std::endl;
         }
     }
+    else if(arg0=="rm"){
+        RootList.back()->rm(arg1);
+    }
     else{
         return 1;
     }
