@@ -51,3 +51,10 @@ void Directory::rm(std::string name)
     }else std::cout<<"rm: "<<name<<" nem törölhető: Nincs ilyen fájl vagy könyvtár"<<std::endl;
 }
 
+void Directory::rmrf(std::string name)
+{
+    Directory* d=this->getelement(name);
+    if(d != nullptr){ delete d;
+        dirlist.remove(d); }
+}
+

@@ -34,7 +34,9 @@ bool System::command(std::string command)
         }
     }
     else if(arg0=="rm"){
-        RootList.back()->rm(arg1);
+        if(arg1=="-rf")
+            RootList.back()->rmrf(arg2);
+        else RootList.back()->rm(arg1);
     }
     else{
         return 1;
