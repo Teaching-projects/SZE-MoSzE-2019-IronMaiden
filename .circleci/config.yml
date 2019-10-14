@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: g++ -std=c++11 main.cpp Directory.cpp System.cpp
       - run: ./a.out < .circleci/in.txt > .circleci/out.txt      
-      - run: echo -e >> .circleci/out.txt
+      - run: echo -e "\n" >> .circleci/out.txt
       - run: diff .circleci/expect.txt .circleci/out.txt
 workflows:
   version: 2
