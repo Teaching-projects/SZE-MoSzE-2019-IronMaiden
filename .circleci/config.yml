@@ -5,9 +5,13 @@ jobs:
       image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run: g++ -std=c++11 main.cpp Directory.cpp System.cpp
-      - run: ./a.out < .circleci/in.txt > .circleci/out.txt      
+      - run: make
+      - run: ./a.out < .circleci/in.txt > .circleci/out.txt
+      - run: echo -e "\n" >> .circleci/out.txt
       - run: cat .circleci/out.txt
+      - run: cat .circleci/expect.txt
+      - run: diff .circleci/expect.txt .circleci/out.txt
+      - run: make clean
 workflows:
   version: 2
   tasks:
