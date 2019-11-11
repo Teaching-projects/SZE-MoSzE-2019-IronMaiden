@@ -14,9 +14,9 @@ System::~System()
 
 bool System::command(std::string command)
 {
-    std::string arg0, arg1, arg2;
+    std::string arg0, arg1, arg2, arg3;
     std::istringstream line(command);
-    line>>arg0; line>>arg1; line>>arg2;
+    line>>arg0; line>>arg1; line>>arg2; line>>arg3;
     if(arg0=="ls" && arg1==""){
         RootList.back()->ls();
     }
@@ -34,6 +34,9 @@ bool System::command(std::string command)
             if(dir!=nullptr)RootList.push_back(dir);
             else std::cout<<"bash: cd: "<<arg1<<": Nincs ilyen könyvtár"<<std::endl;
         }
+    }
+    else if(arg0=="echo" && arg2==">" && arg3!=""){
+        RootList.back()->echo(arg3,arg1);
     }
     else if(arg0=="rm"){
         if(arg1=="-rf" && arg2!="")

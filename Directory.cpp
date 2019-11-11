@@ -43,15 +43,27 @@ void Directory::mkdir(std::string name)
     else std::cout<<"mkdir: nem lehet a következő könyvtárat létrehozni: "<<name<<": A könyvtár már létezik"<<std::endl;
 }
 
-void Directory::touch(std::string name)
+bool Directory::touch(std::string name)
 {
     Directory* d=this->getelement(name);
     File* f=this->getfileelement(name);
     if(f == nullptr){
         if(d == nullptr){
         filelist.push_back(new File(name));}
-    else std::cout<<"touch: nem lehet a következő fájlt létrehozni: "<<name<<": A könyvtár már létezik"<<std::endl;}
-    else std::cout<<"touch: nem lehet a következő fájlt létrehozni: "<<name<<": A fájl már létezik"<<std::endl;
+        else{ std::cout<<"touch: nem lehet a következő fájlt létrehozni \""<<name<<"\" A könyvtár már létezik"<<std::endl;
+            return 1;}}
+    else{ std::cout<<"touch: nem lehet a következő fájlt létrehozni \""<<name<<"\" A fájl már létezik"<<std::endl;
+        return 1;}
+    return 0;
+}
+
+void Directory::echo(std::string name, std::string conntent)
+{
+    File* f=this->getfileelement(name);
+    if(f != nullptr){
+        f->setContent(conntent);
+    }else if(!this->touch(name))
+        this->getfileelement(name)->setContent(conntent);
 }
 
 Directory *Directory::getelement(std::string name)

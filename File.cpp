@@ -8,3 +8,7 @@ std::string File::getName() const
 {
     return name;
 }
+void File::setContent(const std::string &value)
+{
+    content = value;
+}

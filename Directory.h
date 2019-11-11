@@ -16,7 +16,8 @@ public:
     std::string getName() const;
     void ls();
     void mkdir(std::string name);
-    void touch(std::string name);
+    bool touch(std::string name);
+    void echo(std::string name, std::string conntent);
     Directory* getelement(std::string name);
     File* getfileelement(std::string name);
     void rm(std::string name);
@@ -25,4 +26,3 @@ public:
 };
 
 #endif // DIRECTORY_H
-
