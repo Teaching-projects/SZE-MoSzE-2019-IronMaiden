@@ -22,39 +22,36 @@ void Directory::ls()
     for (auto& d : dirlist){
         std::cout<<(d->getName());
         std::cout<<std::endl;
-
     }
     for (auto& f : filelist){
         std::cout<<(f->getName());
         std::cout<<std::endl;
-
     }
 }
 
 void Directory::mkdir(std::string name)
 {
-    Directory* d=this->getelement(name);
-    File* f=this->getfileelement(name);
+    Directory* d=this->getElement(name);
+    File* f=this->getFileElement(name);
     if(d == nullptr){
         if(f == nullptr){
             dirlist.push_back(new Directory(name));}
-    else std::cout<<"mkdir: nem lehet a következő könyvtárat létrehozni: "<<name<<": A fájl már létezik"<<std::endl;
-    }
+        else std::cout<<"mkdir: nem lehet a következő könyvtárat létrehozni: "<<name<<": A fájl már létezik"<<std::endl;}
     else std::cout<<"mkdir: nem lehet a következő könyvtárat létrehozni: "<<name<<": A könyvtár már létezik"<<std::endl;
 }
 
 void Directory::touch(std::string name)
 {
-    Directory* d=this->getelement(name);
-    File* f=this->getfileelement(name);
+    Directory* d=this->getElement(name);
+    File* f=this->getFileElement(name);
     if(f == nullptr){
         if(d == nullptr){
-        filelist.push_back(new File(name));}
-    else std::cout<<"touch: nem lehet a következő fájlt létrehozni: "<<name<<": A könyvtár már létezik"<<std::endl;}
+            filelist.push_back(new File(name));}
+        else std::cout<<"touch: nem lehet a következő fájlt létrehozni: "<<name<<": A könyvtár már létezik"<<std::endl;}
     else std::cout<<"touch: nem lehet a következő fájlt létrehozni: "<<name<<": A fájl már létezik"<<std::endl;
 }
 
-Directory *Directory::getelement(std::string name)
+Directory *Directory::getElement(std::string name)
 {
     for (auto& d : dirlist){
         if(d->getName()==name)
@@ -63,37 +60,45 @@ Directory *Directory::getelement(std::string name)
     return nullptr;
 }
 
-File *Directory::getfileelement(std::string name)
+File *Directory::getFileElement(std::string name)
 {
 
-    for (auto& d : filelist){
-        if(d->getName()==name)
-            return d;
+    for (auto& f : filelist){
+        if(f->getName()==name)
+            return f;
     }
     return nullptr;
 }
 
-void Directory::rm(std::string name)
+bool Directory::rm(std::string name, bool rf)
 {
-    Directory* d=this->getelement(name);
-    if(d != nullptr){
-       if(d->dirlist.size()==0 && d->filelist.size()==0){
-        delete d;
-        dirlist.remove(d);
-        }else std::cout<<"rm: "<<name<<" nem törölhető: A könyvtár nem üres"<<std::endl;
-    }else{
-        File* f=this->getfileelement(name);
-        if(f != nullptr){
-            delete f;
-            filelist.remove(f);}
-        else
-        std::cout<<"rm: "<<name<<" nem törölhető: Nincs ilyen fájl vagy könyvtár"<<std::endl;}
+    std::list<Directory*>::iterator itr;
+    for (itr=dirlist.begin(); itr!=dirlist.end(); ++itr){
+        if(itr.operator*()->getName()==name){
+            if(rf){
+                delete(itr.operator*());
+                dirlist.erase(itr);
+                return 0;
+            }
+            else if(itr.operator*()->dirlist.empty() && itr.operator*()->filelist.empty()){
+                delete(itr.operator*());
+                dirlist.erase(itr);
+                return 0;
+            }
+            else{
+                std::cout<<"rm: "<<name<<" nem törölhető: A könyvtár nem üres"<<std::endl;
+                return 1;
+            }
+        }
+    }
+    std::list<File*>::iterator itr2;
+    for (itr2=filelist.begin(); itr2!=filelist.end(); ++itr2){
+        if(itr.operator*()->getName()==name){
+            delete(itr2.operator*());
+            filelist.erase(itr2);
+            return 0;
+        }
+    }
+    std::cout<<"rm: "<<name<<" nem törölhető: Nincs ilyen fájl vagy könyvtár"<<std::endl;
+    return 1;
 }
-
-void Directory::rmrf(std::string name)
-{
-    Directory* d=this->getelement(name);
-    if(d != nullptr){ delete d;
-        dirlist.remove(d);}else std::cout<<"rm -rf: "<<name<<" nem törölhető: Nincs ilyen könyvtár"<<std::endl;
-}
-

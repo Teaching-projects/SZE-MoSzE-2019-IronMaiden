@@ -17,11 +17,9 @@ public:
     void ls();
     void mkdir(std::string name);
     void touch(std::string name);
-    Directory* getelement(std::string name);
-    File* getfileelement(std::string name);
-    void rm(std::string name);
-    void rmrf(std::string name);
-
+    Directory* getElement(std::string name);
+    File* getFileElement(std::string name);
+    bool rm(std::string name, bool rf=0);
 };
 
 #endif // DIRECTORY_H
