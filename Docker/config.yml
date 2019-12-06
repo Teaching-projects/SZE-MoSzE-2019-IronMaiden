@@ -1,0 +1,19 @@
+version: 2
+jobs:
+  build_and_test:
+    docker:
+      image: kurisd/mem:latest
+    steps:
+      - checkout
+      - run: make
+      - run: valgrind -q ./a.out < .circleci/in.txt > .circleci/out.txt
+      - run: echo -e "\n" >> .circleci/out.txt
+      - run: cat .circleci/out.txt
+      - run: cat .circleci/expect.txt
+      - run: diff .circleci/expect.txt .circleci/out.txt
+      - run: make clean
+workflows:
+  version: 2
+  tasks:
+    jobs:
+      - build_and_test
