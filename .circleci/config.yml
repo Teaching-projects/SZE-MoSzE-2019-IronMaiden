@@ -1,12 +1,12 @@
 version: 2
 jobs:
   build_and_test:
-    machine:
-      image: ubuntu-1604:201903-01
+    docker:
+       - image: kurisd/mem:latest
     steps:
       - checkout
       - run: make
-      - run: ./a.out < .circleci/in.txt > .circleci/out.txt
+      - run: valgrind -q ./a.out < .circleci/in.txt > .circleci/out.txt
       - run: echo -e "\n" >> .circleci/out.txt
       - run: cat .circleci/out.txt
       - run: cat .circleci/expect.txt
